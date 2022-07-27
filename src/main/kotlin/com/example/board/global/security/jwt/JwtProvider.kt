@@ -15,8 +15,7 @@ import javax.annotation.PostConstruct
 class JwtProvider {
     @Value("{JWT.SECRET.KEY}")
     var SECRET_KEY: String? = "";
-    @Value("{JWT.ACCESS.TOKEN.VALIDITY}")
-    val JWT_ACCESS_TOKEN_VALIDITY: Long? = 0;
+    val JWT_ACCESS_TOKEN_VALIDITY: Long = 6000000;
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @PostConstruct
@@ -26,7 +25,7 @@ class JwtProvider {
 
     fun generateAccessToken(member: Member): String? {
         val now = Date()
-        val expireDate: Date = Date(now.time + JWT_ACCESS_TOKEN_VALIDITY!!)
+        val expireDate: Date = Date(now.time + JWT_ACCESS_TOKEN_VALIDITY)
 
         return Jwts.builder()
             .setSubject(member.email)
