@@ -16,5 +16,10 @@ spring:
 
     # OSIV ??
     open-in-view: false
+
 server:
   port: 9090
+
+JWT:
+  SECRET:
+    KEY: N0ppQjdLZUE2NGlFNjRLWUlPcTNnT3lYdmV1THBBPT0=
