@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class JwtAuthenticationFilter(
-    private val jwtProvider: JwtProvider? = null,
-    private val customPrincipalDetailsService: CustomPrincipalDetailsService? = null
+    private val jwtProvider: JwtProvider,
+    private val customPrincipalDetailsService: CustomPrincipalDetailsService
 ) : OncePerRequestFilter() {
     private val log = LoggerFactory.getLogger(this::class.java)
 
@@ -29,9 +29,9 @@ class JwtAuthenticationFilter(
     ) {
         try {
             val jwt = request.getHeader("Authorization")
-            if (StringUtils.hasText(jwt) && jwtProvider!!.isValidateToken(jwt)) {
-                val userEmail: String? = jwtProvider!!.getEmailFromAccessToken(jwt)
-                val userDetails: UserDetails = customPrincipalDetailsService!!.loadUserByUsername(userEmail)
+            if (StringUtils.hasText(jwt) && jwtProvider.isValidateToken(jwt)) {
+                val userEmail: String? = jwtProvider.getEmailFromAccessToken(jwt)
+                val userDetails: UserDetails = customPrincipalDetailsService.loadUserByUsername(userEmail)
                 val authentication = UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.authorities
                 )

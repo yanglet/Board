@@ -14,7 +14,7 @@ class Post(
 ): BaseEntity() {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    val id: Long? = null;
+    val id: Long = 0;
     var title: String = title;
     var content: String = content;
     @OneToMany(mappedBy = "post")
@@ -22,4 +22,9 @@ class Post(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     var member: Member = member;
+
+    fun change(title: String, content: String){
+        this.title = title;
+        this.content = content;
+    }
 }
