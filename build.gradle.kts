@@ -6,6 +6,9 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+
+	// querydsl 추가
+	kotlin("kapt") version "1.4.10"
 }
 
 group = "com.example"
@@ -28,6 +31,15 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// querydsl 추가
+	implementation("com.querydsl:querydsl-jpa")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+	annotationProcessor(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
+}
+
+sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class){
+	kotlin.srcDir("$buildDir/generated/source/kapt/main")
 }
 
 tasks.withType<KotlinCompile> {
