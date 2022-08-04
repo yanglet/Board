@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class PrincipalDetails(member: Member): UserDetails {
-    private var member: Member? = member;
+    var member: Member? = member;
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         val authorities = ArrayList<GrantedAuthority>()
