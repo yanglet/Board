@@ -31,7 +31,7 @@ class PostService(private val postRepository: PostRepository) {
         if (member == null) {
             throw AccessDeniedException("access denied");
         }
-        val post = Post(postRequest.title, postRequest.content, listOf(), member!!);
+        val post = Post(postRequest.title, postRequest.content, listOf(), member);
         val savePost = postRepository.save(post);
 
         return PostResponse(savePost.id);

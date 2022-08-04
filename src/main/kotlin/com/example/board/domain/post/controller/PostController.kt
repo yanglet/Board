@@ -31,7 +31,7 @@ class PostController(
 
     @PostMapping("/post")
     fun post(@Validated @RequestBody postRequest: PostRequest,
-             @LoginMember member: Member): ResponseEntity<PostResponse> {
+             @LoginMember member: Member?): ResponseEntity<PostResponse> {
         val post = postService.post(postRequest, member);
         return ResponseEntity(post, HttpStatus.CREATED);
     }
@@ -45,14 +45,14 @@ class PostController(
     @PostMapping("/{post_id}")
     fun update(@PathVariable("post_id") id: Long,
                @Validated @RequestBody postRequest: PostRequest,
-               @LoginMember member: Member): ResponseEntity<PostResponse> {
+               @LoginMember member: Member?): ResponseEntity<PostResponse> {
         val post = postService.update(id, postRequest, member);
         return ResponseEntity.ok(post);
     }
 
     @DeleteMapping("/{post_id}")
     fun delete(@PathVariable("post_id") id: Long,
-               @LoginMember member: Member){
+               @LoginMember member: Member?){
         postService.delete(id, member);
     }
 }
